@@ -1,4 +1,4 @@
-import javax.naming.InvalidNameException;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.InputMismatchException;
@@ -32,19 +32,15 @@ public class QLNV {
         return luong;
     }
     public static String nhapGioiTinh() {
-        while (true) {
-            try {
                 System.out.println("Nhap gioi tinh(Nam/Nu): ");
                 String gender = sc.nextLine();
                 if (gender.equals("Nam") || gender.equals("Nu"))
                     return gender;
                 else
                     throw new InputMismatchException();
-            } catch (InputMismatchException e) {
-                System.out.println("Nhập lại giới tính");
             }
-        }
-    }
+
+
     public static void addNhanVienPartTime(){
         System.out.println("Nhập tên");
         String ten = sc.nextLine();
@@ -317,5 +313,3 @@ public class QLNV {
     }
 
 }
-
-
