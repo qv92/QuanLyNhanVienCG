@@ -28,7 +28,7 @@ public class QLNV {
     public static String nhapGioiTinh() {
             System.out.println("Nhập giới tính");
             String gioi_tinh = sc.nextLine();
-            if (gioi_tinh != "nam" || gioi_tinh != "nu")
+            if((!gioi_tinh.equals("nam")) || (!gioi_tinh.equals("nu")))
                 throw new InputMismatchException("Giới tính phải là nam hoặc nu");
             return gioi_tinh;
         }
