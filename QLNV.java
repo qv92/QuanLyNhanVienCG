@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.InputMismatchException;
@@ -20,6 +19,11 @@ public class QLNV {
             if (NhanVien.getEmail().equals(email)) throw new InputMismatchException("Email đã tồn tại");
         }
         return email;
+    }
+    public static double nhapLuong(){
+        System.out.println("Nhập lương");
+        double luong=Double.parseDouble(sc.nextLine());
+        return luong;
     }
     public static String nhapGioiTinh() {
             System.out.println("Nhập giới tính");
@@ -58,13 +62,19 @@ public class QLNV {
                 System.out.println("Nhập lại email mới , email đã tồn tại ");
             }
         }
-        System.out.println("Nhập lương");
-        double luong = Double.parseDouble(sc.nextLine());
+        while (true){
+            try{
+                double luong=nhapLuong();break;
+            }
+            catch (Exception e){
+                System.out.println("Lương phải là 1 số");
+            }
+        }
         System.out.println("Nhập ngành");
         String nganh=sc.nextLine();
         System.out.println("Nhập giờ làm việc");
         double gio_lam_viec = Double.parseDouble(sc.nextLine());
-        NhanVien nhanVien = new NhanVienPartTime( ten, nhapTuoiNhanVien(),  nhapGioiTinh(),  sdt,  nhapEmail(),  luong,  nganh,  gio_lam_viec);
+        NhanVien nhanVien = new NhanVienPartTime( ten, nhapTuoiNhanVien(),  nhapGioiTinh(),  sdt,  nhapEmail(),  nhapLuong(),  nganh,  gio_lam_viec);
         list.add(nhanVien);
     }
     public static void addNhanVienFullTime(){
@@ -97,11 +107,17 @@ public class QLNV {
                 System.out.println("Nhập lại email mới , email đã tồn tại ");
             }
         }
-        System.out.println("Nhập lương");
-        double luong = Double.parseDouble(sc.nextLine());
+        while (true){
+            try{
+                double luong=nhapLuong();break;
+            }
+            catch (Exception e){
+                System.out.println("Lương phải là 1 số");
+            }
+        }
         System.out.println("Nhập ngành");
         String nganh=sc.nextLine();
-        NhanVien nhanVien = new NhanVienFullTime( ten,  nhapTuoiNhanVien(),  nhapGioiTinh(),  sdt,  nhapEmail(),  luong,  nganh);
+        NhanVien nhanVien = new NhanVienFullTime( ten,  nhapTuoiNhanVien(),  nhapGioiTinh(),  sdt,  nhapEmail(),  nhapLuong(),  nganh);
         list.add(nhanVien);
     }
     public static void addNhanVienTuyenSinh(){
@@ -135,11 +151,17 @@ public class QLNV {
                 System.out.println("Nhập lại email mới , email đã tồn tại ");
             }
         }
-        System.out.println("Nhập lương");
-        double luong = Double.parseDouble(sc.nextLine());
+        while (true){
+            try{
+                double luong=nhapLuong();break;
+            }
+            catch (Exception e){
+                System.out.println("Lương phải là 1 số");
+            }
+        }
         System.out.println("Nhập số tuyển sinh");
         int so_tuyen_sinh = Integer.parseInt(sc.nextLine());
-        NhanVien nhanVien = new NhanVienTuyenSinh( ten,  tuoi,  nhapGioiTinh(),  sdt,  nhapEmail(),  luong,  so_tuyen_sinh);
+        NhanVien nhanVien = new NhanVienTuyenSinh( ten,  tuoi,  nhapGioiTinh(),  sdt,  nhapEmail(),  nhapLuong(),  so_tuyen_sinh);
         list.add(nhanVien);
     }
     public static void addNhanVienDaoTao(){
@@ -283,3 +305,4 @@ public class QLNV {
     }
 
 }
+
