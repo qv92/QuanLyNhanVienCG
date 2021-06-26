@@ -1,8 +1,14 @@
+import javax.naming.InvalidNameException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+class GenderCondition extends Exception{
+    @Override
+    public String getMessage() {
+        return "Gioi tinh khong hop le";
+    }
+}
 public class QLNV {
     static ArrayList<NhanVien> list = new ArrayList<>();
     static Scanner sc= new Scanner(System.in);
@@ -26,12 +32,19 @@ public class QLNV {
         return luong;
     }
     public static String nhapGioiTinh() {
-            System.out.println("Nhập giới tính");
-            String gioi_tinh = sc.nextLine();
-            if((!gioi_tinh.equals("nam")) || (!gioi_tinh.equals("nu")))
-                throw new InputMismatchException("Giới tính phải là nam hoặc nu");
-            return gioi_tinh;
+        while (true) {
+            try {
+                System.out.println("Nhap gioi tinh(Nam/Nu): ");
+                String gender = sc.nextLine();
+                if (gender.equals("Nam") || gender.equals("Nu"))
+                    return gender;
+                else
+                    throw new InputMismatchException();
+            } catch (InputMismatchException e) {
+                System.out.println("Nhập lại giới tính");
+            }
         }
+    }
     public static void addNhanVienPartTime(){
         System.out.println("Nhập tên");
         String ten = sc.nextLine();
@@ -49,7 +62,7 @@ public class QLNV {
                 String gioi_tinh=nhapGioiTinh();break;
             }
             catch (InputMismatchException e){
-                e.getMessage();
+                System.out.println("Giới tính phải là nam hoặc nu");
             }
         }
         System.out.println("Nhập số điện thoại");
@@ -132,7 +145,6 @@ public class QLNV {
                 System.out.println("tuoi phai lon hon 18 va la so");
             }
         }
-        int tuoi=nhapTuoiNhanVien();
         while (true){
             try{
                 String gioi_tinh=nhapGioiTinh();break;
@@ -161,7 +173,7 @@ public class QLNV {
         }
         System.out.println("Nhập số tuyển sinh");
         int so_tuyen_sinh = Integer.parseInt(sc.nextLine());
-        NhanVien nhanVien = new NhanVienTuyenSinh( ten,  tuoi,  nhapGioiTinh(),  sdt,  nhapEmail(),  nhapLuong(),  so_tuyen_sinh);
+        NhanVien nhanVien = new NhanVienTuyenSinh( ten,  nhapTuoiNhanVien(),  nhapGioiTinh(),  sdt,  nhapEmail(),  nhapLuong(),  so_tuyen_sinh);
         list.add(nhanVien);
     }
     public static void addNhanVienDaoTao(){
@@ -305,4 +317,5 @@ public class QLNV {
     }
 
 }
+
 
