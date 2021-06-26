@@ -3,173 +3,105 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-class GenderCondition extends Exception{
-    @Override
-    public String getMessage() {
-        return "Gioi tinh khong hop le";
-    }
-}
 public class QLNV {
     static ArrayList<NhanVien> list = new ArrayList<>();
     static Scanner sc= new Scanner(System.in);
-    public static int nhapTuoiNhanVien() {
-        System.out.print("Nhập tuổi nhân viên: ");
-        int tuoi = Integer.parseInt(sc.nextLine());
-        if (tuoi < 18) throw new InputMismatchException("tuổi không được nhỏ hơn 18");
-        return tuoi;
+    public static String nhapTen(){
+        System.out.println("Nhập tên nhân viên");
+        String ten=sc.nextLine();
+        return ten;
     }
-    public static String nhapEmail(){
-        System.out.println("Nhập email nhân viên");
-        String email= sc.nextLine();
-        for (NhanVien NhanVien:list) {
-            if (NhanVien.getEmail().equals(email)) throw new InputMismatchException("Email đã tồn tại");
-        }
-        return email;
-    }
-    public static double nhapLuong(){
-        System.out.println("Nhập lương");
-        double luong=Double.parseDouble(sc.nextLine());
-        return luong;
-    }
-    public static String nhapGioiTinh() {
-                System.out.println("Nhap gioi tinh(Nam/Nu): ");
-                String gender = sc.nextLine();
-                if (gender.equals("Nam") || gender.equals("Nu"))
-                    return gender;
-                else
-                    throw new InputMismatchException();
-            }
-
-
-    public static void addNhanVienPartTime(){
-        System.out.println("Nhập tên");
-        String ten = sc.nextLine();
-        while (true){
-            try{ int tuoi=nhapTuoiNhanVien();break;}
-            catch (InputMismatchException e){
-                System.out.println("nhap lai");
-            }
-            catch (Exception e){
-                System.out.println("tuoi phai lon hon 18 va la so");
-            }
-        }
-        while (true){
-            try{
-                String gioi_tinh=nhapGioiTinh();break;
-            }
-            catch (InputMismatchException e){
-                System.out.println("Giới tính phải là nam hoặc nu");
-            }
-        }
+    public static String nhapSDT(){
         System.out.println("Nhập số điện thoại");
         String sdt=sc.nextLine();
-        while (true){
-            try{
-                String email = nhapEmail();break;
+        return sdt;
+    }
+    public static int nhapTuoiNhanVien() {
+        while (true) {
+            System.out.print("Nhập tuổi nhân viên: ");
+            try{int tuoi = Integer.parseInt(sc.nextLine());
+                if (tuoi < 18) throw new InputMismatchException("tuổi không được nhỏ hơn 18");
+                else return tuoi;
             }
             catch (InputMismatchException e){
-                System.out.println("Nhập lại email mới , email đã tồn tại ");
+                System.out.println("Tuổi phải là số lớn hơn 18");
+            }
+            catch (Exception e){
+                System.out.println("Tuổi phải là số lớn hơn 18");
             }
         }
-        while (true){
-            try{
-                double luong=nhapLuong();break;
+    }
+    public static String nhapEmail() {
+        while (true) {
+            System.out.println("Nhập email nhân viên");
+            try {String email = sc.nextLine();
+                for (NhanVien NhanVien : list) {
+                    if (NhanVien.getEmail().equals(email)) throw new InputMismatchException("Email đã tồn tại");
+                    else return email;
+                }
             }
+            catch (InputMismatchException e){
+                System.out.println("Email này đã có rồi , mời nhập email khác");
+            }
+        }
+    }
+    public static double nhapLuong(){
+        while (true) {
+            try {System.out.println("Nhập lương");
+                double luong = Double.parseDouble(sc.nextLine());
+                return luong;}
             catch (Exception e){
                 System.out.println("Lương phải là 1 số");
             }
         }
+    }
+    public static String nhapGioiTinh() {
+        while (true) {
+            try {System.out.println("Nhap gioi tinh(Nam/Nu): ");
+                String gender = sc.nextLine();
+                if (gender.equals("Nam") || gender.equals("Nu")) return gender;
+                else throw new InputMismatchException();}
+            catch (InputMismatchException e){
+                System.out.println("Giới tình chỉ có thể là Nam hoặc Nu");
+            }
+        }
+    }
+    public static void addNhanVienPartTime(){
+        nhapTen();
+        nhapTuoiNhanVien();
+        nhapSDT();
+        nhapEmail();
+        nhapGioiTinh();
+        nhapLuong();
         System.out.println("Nhập ngành");
         String nganh=sc.nextLine();
         System.out.println("Nhập giờ làm việc");
         double gio_lam_viec = Double.parseDouble(sc.nextLine());
-        NhanVien nhanVien = new NhanVienPartTime( ten, nhapTuoiNhanVien(),  nhapGioiTinh(),  sdt,  nhapEmail(),  nhapLuong(),  nganh,  gio_lam_viec);
+        NhanVien nhanVien = new NhanVienPartTime( nhapTen(), nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  nganh,  gio_lam_viec);
         list.add(nhanVien);
     }
     public static void addNhanVienFullTime(){
-        System.out.println("Nhập tên");
-        String ten = sc.nextLine();
-        while (true){
-            try{ int tuoi=nhapTuoiNhanVien();break;}
-            catch (InputMismatchException e){
-                System.out.println("Tuổi phải là số và lớn hơn 18");
-            }
-            catch (Exception e){
-                System.out.println("Tuổi phải là số và lớn hơn 18");
-            }
-        }
-        while (true){
-            try{
-                String gioi_tinh=nhapGioiTinh();break;
-            }
-            catch (InputMismatchException e){
-                e.getMessage();
-            }
-        }
-        System.out.println("Nhập số điện thoại");
-        String sdt=sc.nextLine();
-        while (true){
-            try{
-                String email = nhapEmail();break;
-            }
-            catch (InputMismatchException e){
-                System.out.println("Nhập lại email mới , email đã tồn tại ");
-            }
-        }
-        while (true){
-            try{
-                double luong=nhapLuong();break;
-            }
-            catch (Exception e){
-                System.out.println("Lương phải là 1 số");
-            }
-        }
+        nhapTen();
+        nhapTuoiNhanVien();
+        nhapSDT();
+        nhapGioiTinh();
+        nhapEmail();
+        nhapLuong();
         System.out.println("Nhập ngành");
         String nganh=sc.nextLine();
-        NhanVien nhanVien = new NhanVienFullTime( ten,  nhapTuoiNhanVien(),  nhapGioiTinh(),  sdt,  nhapEmail(),  nhapLuong(),  nganh);
+        NhanVien nhanVien = new NhanVienFullTime( nhapTen(),  nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  nganh);
         list.add(nhanVien);
     }
     public static void addNhanVienTuyenSinh(){
-        System.out.println("Nhập tên");
-        String ten = sc.nextLine();
-        while (true){
-            try{ int tuoi=nhapTuoiNhanVien();break;}
-            catch (InputMismatchException e){
-                System.out.println("nhap lai");
-            }
-            catch (Exception e){
-                System.out.println("tuoi phai lon hon 18 va la so");
-            }
-        }
-        while (true){
-            try{
-                String gioi_tinh=nhapGioiTinh();break;
-            }
-            catch (InputMismatchException e){
-                e.getMessage();
-            }
-        }
-        System.out.println("Nhập số điện thoại");
-        String sdt=sc.nextLine();
-        while (true){
-            try{
-                String email = nhapEmail();break;
-            }
-            catch (InputMismatchException e){
-                System.out.println("Nhập lại email mới , email đã tồn tại ");
-            }
-        }
-        while (true){
-            try{
-                double luong=nhapLuong();break;
-            }
-            catch (Exception e){
-                System.out.println("Lương phải là 1 số");
-            }
-        }
+        nhapTen();
+        nhapTuoiNhanVien();
+        nhapGioiTinh();
+        nhapSDT();
+        nhapEmail();
+        nhapLuong();
         System.out.println("Nhập số tuyển sinh");
         int so_tuyen_sinh = Integer.parseInt(sc.nextLine());
-        NhanVien nhanVien = new NhanVienTuyenSinh( ten,  nhapTuoiNhanVien(),  nhapGioiTinh(),  sdt,  nhapEmail(),  nhapLuong(),  so_tuyen_sinh);
+        NhanVien nhanVien = new NhanVienTuyenSinh( nhapTen(),  nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  so_tuyen_sinh);
         list.add(nhanVien);
     }
     public static void addNhanVienDaoTao(){
@@ -259,20 +191,20 @@ public class QLNV {
     }
     public static void removeNhanVien(){
         while (true){System.out.println("1.Xóa nhân viên đào tạo");
-        System.out.println("2.Xóa nhân viên tuyển sinh");
-        System.out.println("3.Thoát");
-        int choice = Integer.parseInt(sc.nextLine());
-        switch (choice){
-            case 1:
-                removeNhanVienDaotao();
-                break;
-            case 2:
-                removeNhanVienTuyenSinh();
-                break;
-            case 3:
-                break;
-        }if (choice==3) break;
-    }}
+            System.out.println("2.Xóa nhân viên tuyển sinh");
+            System.out.println("3.Thoát");
+            int choice = Integer.parseInt(sc.nextLine());
+            switch (choice){
+                case 1:
+                    removeNhanVienDaotao();
+                    break;
+                case 2:
+                    removeNhanVienTuyenSinh();
+                    break;
+                case 3:
+                    break;
+            }if (choice==3) break;
+        }}
     public static void menu(){
         while (true){
             System.out.println("1.Thêm nhân viên");
@@ -311,5 +243,4 @@ public class QLNV {
             }
         }
     }
-
 }
