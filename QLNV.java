@@ -35,10 +35,13 @@ public class QLNV {
         while (true) {
             System.out.println("Nhập email nhân viên");
             try {String email = sc.nextLine();
-                for (NhanVien NhanVien : list) {
-                    if (NhanVien.getEmail().equals(email)) throw new InputMismatchException("Email đã tồn tại");
-                    else return email;
+                if (list.size()>1) {
+                    for (int i = 0; i < list.size()-1; i++) {
+                        if (list.get(i).getEmail().equals(email))
+                            throw new InputMismatchException();
+                    }
                 }
+                return email;
             }
             catch (InputMismatchException e){
                 System.out.println("Email này đã có rồi , mời nhập email khác");
@@ -67,12 +70,6 @@ public class QLNV {
         }
     }
     public static void addNhanVienPartTime(){
-        nhapTen();
-        nhapTuoiNhanVien();
-        nhapSDT();
-        nhapEmail();
-        nhapGioiTinh();
-        nhapLuong();
         System.out.println("Nhập ngành");
         String nganh=sc.nextLine();
         System.out.println("Nhập giờ làm việc");
@@ -81,24 +78,12 @@ public class QLNV {
         list.add(nhanVien);
     }
     public static void addNhanVienFullTime(){
-        nhapTen();
-        nhapTuoiNhanVien();
-        nhapSDT();
-        nhapGioiTinh();
-        nhapEmail();
-        nhapLuong();
         System.out.println("Nhập ngành");
         String nganh=sc.nextLine();
         NhanVien nhanVien = new NhanVienFullTime( nhapTen(),  nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  nganh);
         list.add(nhanVien);
     }
     public static void addNhanVienTuyenSinh(){
-        nhapTen();
-        nhapTuoiNhanVien();
-        nhapGioiTinh();
-        nhapSDT();
-        nhapEmail();
-        nhapLuong();
         System.out.println("Nhập số tuyển sinh");
         int so_tuyen_sinh = Integer.parseInt(sc.nextLine());
         NhanVien nhanVien = new NhanVienTuyenSinh( nhapTen(),  nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  so_tuyen_sinh);
@@ -244,3 +229,4 @@ public class QLNV {
         }
     }
 }
+
