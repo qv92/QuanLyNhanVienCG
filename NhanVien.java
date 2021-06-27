@@ -63,7 +63,7 @@ public class NhanVien {
         this.luong = luong;
     }
     public double doanh_thu(){
-        double doanhThu=luong*8;
+        double doanhThu=getLuong*8;
         return doanhThu;
     }
 
