@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.InputMismatchException;
@@ -69,24 +68,31 @@ public class QLNV {
             }
         }
     }
-    public static void addNhanVienPartTime(){
+    public static String nhapNganh(){
         System.out.println("Nhập ngành");
-        String nganh=sc.nextLine();
+        String nganh = sc.nextLine();
+        return nganh;
+    }
+    public static int nhapSoTuyenSinh(){
+        System.out.println("Nhập số tuyển sinh được");
+        int so_tuyen_sinh = Integer.parseInt(sc.nextLine());
+        return so_tuyen_sinh;
+    }
+    public static double nhapGioLamViec(){
         System.out.println("Nhập giờ làm việc");
-        double gio_lam_viec = Double.parseDouble(sc.nextLine());
-        NhanVien nhanVien = new NhanVienPartTime( nhapTen(), nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  nganh,  gio_lam_viec);
+        double gio_lam_viec=Double.parseDouble(sc.nextLine());
+        return gio_lam_viec;
+    }
+    public static void addNhanVienPartTime(){
+        NhanVien nhanVien = new NhanVienPartTime( nhapTen(), nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  nhapNganh(),  nhapGioLamViec());
         list.add(nhanVien);
     }
     public static void addNhanVienFullTime(){
-        System.out.println("Nhập ngành");
-        String nganh=sc.nextLine();
-        NhanVien nhanVien = new NhanVienFullTime( nhapTen(),  nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  nganh);
+        NhanVien nhanVien = new NhanVienFullTime( nhapTen(),  nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  nhapNganh());
         list.add(nhanVien);
     }
     public static void addNhanVienTuyenSinh(){
-        System.out.println("Nhập số tuyển sinh");
-        int so_tuyen_sinh = Integer.parseInt(sc.nextLine());
-        NhanVien nhanVien = new NhanVienTuyenSinh( nhapTen(),  nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  so_tuyen_sinh);
+        NhanVien nhanVien = new NhanVienTuyenSinh( nhapTen(),  nhapTuoiNhanVien(),  nhapGioiTinh(),  nhapSDT(),  nhapEmail(),  nhapLuong(),  nhapSoTuyenSinh());
         list.add(nhanVien);
     }
     public static void addNhanVienDaoTao(){
@@ -128,12 +134,14 @@ public class QLNV {
     public static void removeNhanVienDaotao(){
         System.out.println("Nhập tên cần đuổi");
         String nameRemove=sc.nextLine();
+        int check=0;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getTen().equals(nameRemove)&&list.get(i).toString().contains("NhanVienDaoTao")){
                 list.remove(i);
                 i--;
+                check++;
             }
-        }
+        }if (check==0) System.out.println("Không có tên này");
     }
     public static void removeNhanVienTuyenSinh(){
         System.out.println("Nhập tên cần đuổi");
