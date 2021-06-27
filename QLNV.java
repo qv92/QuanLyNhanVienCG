@@ -36,7 +36,7 @@ public class QLNV {
             System.out.println("Nhập email nhân viên");
             try {String email = sc.nextLine();
                 if (list.size()>0) {
-                    for (int i = 0; i < list.size()-1; i++) {
+                    for (int i = 0; i < list.size(); i++) {
                         if (list.get(i).getEmail().equals(email))
                             throw new InputMismatchException();
                     }
